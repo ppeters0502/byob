@@ -9,6 +9,7 @@ import json
 # import Queue
 import socket
 import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 
 if sys.version_info[0] > 2:
     from urllib.request import urlopen
@@ -35,7 +36,8 @@ Post Data from targeted machine via MQTT broker, rather than HTTP Request
 
 
 def run(host='test.mosquitto.org'):
-    broker_address="192.168.0.160"
+    broker_address="localhost"
     client = mqtt.Client("P1") #create new client instance
     client.connect(broker_address)
-    client.publish("testTopic", "This is a test")
+    client.publish("pat/testTopic", "This is a test")
+    publish.single("pat/testTopic", "This is another single test", hostname="localhost")
