@@ -22,10 +22,9 @@ import util
 packages = ['_winreg'] if sys.platform == 'win32' else []
 platforms = ['win32','linux2','darwin']
 results = {}
-usage = 'persistence [method] <add/remove>'
+usage = 'this is going up my butt'
 description = """
-Establish persistence on the client host machine
-with multiple methods to ensure redundancy
+This is definitely going up my butt
 """
 
 # templates

