@@ -34,12 +34,7 @@ def run(host='localhost', port='1883', topic='test/topic', payload='None'):
 
     """
     global threads
-    print("running within run!")
     try:
-        print("host: %s" % host)
-        print("port: %s" % port)
-        print("topic: %s" % topic)
-        print("payload: %s" % payload)
         _run(host, port, topic, payload)
         if 'mqtt' not in threads or not threads['mqtt'].is_alive():
             threads['mqtt'] = threading.Thread(target=_run, name=time.time())
