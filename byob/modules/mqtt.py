@@ -25,11 +25,10 @@ Post data from client to MQTT broker.
 """
 
 # main
-def _run(host):
-    publish.single("testTopic", "Hello World!", hostname="localhost")
+def _run(host, port, topic, payload):
+    publish.single(topic=topic, payload=payload, hostname=host, port=port)
 
-
-def run(host='localhost', port='1883'):
+def run(host='localhost', port='1883', topic='test/topic', payload='None'):
     """
     Run the MQTT Module
 
@@ -37,7 +36,11 @@ def run(host='localhost', port='1883'):
     global threads
     print("running within run!")
     try:
-        _run(host)
+        print("host: %s" % host)
+        print("port: %s" % port)
+        print("topic: %s" % topic)
+        print("payload: %s" % payload)
+        _run(host, port, topic, payload)
         if 'mqtt' not in threads or not threads['mqtt'].is_alive():
             threads['mqtt'] = threading.Thread(target=_run, name=time.time())
         return threads['mqtt']

