@@ -959,7 +959,7 @@ class Payload():
             host, port, topic, payload = arguments
             try:
                 globals()['mqtt'].run(host, port, topic, payload)
-                return "Shit just got run."
+                return "payload '%s' published to %s." % (payload,host) 
             except Exception as e:
                 result = "mqtt error: {}".format(str(e))
                 log(result)
